@@ -37,6 +37,9 @@ public:
     int chunkSize;
     int mode;
 
+    // bwt
+    bool bwtMode;
+
     // for double check
     bool completeCheck;
     bool fastCheck;
