@@ -156,6 +156,9 @@ void RfqChunk::calcTotalBufSize() {
     if(mHeader->hasY()) {
         mSize += sizeof(mYBufSize) + mYBufSize;
     }
+    if(mFlags & BIT_HAS_BWT) {
+        mSize += sizeof(mBwtIdx);
+    }
 }
 
 void RfqChunk::read(istream& ifs) {
@@ -172,6 +175,9 @@ void RfqChunk::read(istream& ifs) {
     // mNPosBufSize
     if(mHeader->encodeNPos())
         mNPosBufSize = readLittleEndian32(ifs);
+    if(mFlags & BIT_HAS_BWT) {
+        mBwtIdx = readLittleEndian32(ifs);
+    }
 
     readReadLenBuf(ifs);
     readName1LenBuf(ifs);
@@ -240,6 +246,8 @@ void RfqChunk::write(ostream& ofs) {
     writeLittleEndian(ofs, mQualBufSize);
     if(mHeader->encodeNPos())
         writeLittleEndian(ofs, mNPosBufSize);
+    if(mFlags & BIT_HAS_BWT)
+        writeLittleEndian(ofs, mBwtIdx);
 
     ofs.write((const char*)mReadLenBuf, mReadLenBufSize);
     ofs.write((const char*)mName1LenBuf, mName1LenBufSize);
