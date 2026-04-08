@@ -11,6 +11,8 @@
 #include "rfqheader.h"
 #include "rfqchunk.h"
 #include "read.h"
+// For BWT sequence transformation (must have libdivsufsort installed)
+#include <divsufsort.h>
 
 using namespace std;
 
@@ -19,6 +21,7 @@ public:
     RfqCodec();
     ~RfqCodec();
     void setHeader(RfqHeader* header);
+    void setBwtMode(bool bwtMode) { mBwtMode = bwtMode; }
     RfqHeader* makeHeader(vector<Read*>& reads);
     RfqHeader* makeHeader(vector<ReadPair*>& pairs);
     RfqChunk* encodeChunk(vector<Read*>& reads, bool isPE = false);
@@ -40,6 +43,7 @@ private:
 
 private:
     RfqHeader* mHeader;
+    bool mBwtMode = false;
 };
 
 #endif
