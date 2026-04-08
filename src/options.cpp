@@ -17,6 +17,7 @@ Options::Options(){
     interleavedInput = false;
     completeCheck = false;
     fastCheck = false;
+    bwtMode = false;
 }
 
 bool Options::isFastqFile(string filename) {
