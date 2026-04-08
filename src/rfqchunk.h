@@ -48,6 +48,8 @@ using namespace std;
 #define BIT_HAS_NO_LINE_BREAK_AT_END (1<<10)
 // if set, the encoded stream R2 has line break in the file end
 #define BIT_HAS_NO_LINE_BREAK_AT_END_R2 (1<<11)
+// if set, sequence buffer is encoded with BWT
+#define BIT_HAS_BWT (1<<13)
 
 class RfqChunk{
 public:
@@ -98,6 +100,7 @@ public:
     char* mStrandBuf;
     char* mOverlapBuf;
     uint8* mNPosBuf;
+    uint32 mBwtIdx;
 
     // buffers
     uint32 mReadLenBufSize;
