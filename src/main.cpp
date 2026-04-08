@@ -38,6 +38,7 @@ int main(int argc, char* argv[]){
     cmd.add("stdin", 0, "input from STDIN. If the STDIN is interleaved paired-end FASTQ, please also add --interleaved_in.");
     cmd.add("stdout", 0, "write to STDOUT. When decompressing PE data, this option will result in interleaved FASTQ output for paired-end input. Disabled by defaut.");
     cmd.add("interleaved_in", 0, "indicate that <in1> is an interleaved paired-end FASTQ which contains both read1 and read2. Disabled by defaut.");
+    cmd.add("bwt", 0, "enable BWT sequence transform for higher sequence compression ratio", false);
     cmd.add("verify", 'v', "verify the output stream to ensure compression is correct.");
     cmd.add("fast_verify", 'f', "only verify part (10%) of the output stream to save time.");
     cmd.add("compare", 'p', "compare the files read by read to check the compression consistency. <rfq_to_compare> should be specified in this mode.");
@@ -76,6 +77,7 @@ int main(int argc, char* argv[]){
     compression = max(1, min(9, compression));
     opt.completeCheck = cmd.exist("verify");
     opt.fastCheck = cmd.exist("fast_verify");
+    opt.bwtMode = cmd.exist("bwt");
 
     int modeNum = 0;
     if(cmd.exist("compress"))
